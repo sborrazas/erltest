@@ -1,1 +1,2 @@
 *.beam
+rebar3_app/.vagrant
