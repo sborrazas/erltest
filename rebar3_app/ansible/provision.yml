@@ -65,11 +65,11 @@
         state: present
       become: True
 
-    - name: download precompiled rebar script
+    - name: compiled rebar3 downloaded
       get_url:
-        url: "https://github.com/rebar/rebar/releases/download/{{ rebar_version }}/rebar"
-        dest: "{{ rebar_bin }}"
-        mode: 0777
+        url: https://s3.amazonaws.com/rebar3/rebar3
+        dest: "{{ home_dir }}/.bin/rebar3"
+        mode: 0755
 
     - name: Ubuntu Elisp PPA repo
       apt_repository:
