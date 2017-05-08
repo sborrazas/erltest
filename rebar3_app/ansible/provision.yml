@@ -1,6 +1,7 @@
 ---
 - hosts: all
   vars:
+    home_dir: "{{ ansible_env.HOME }}"
     # defaults file for erlang
     erlang_kerl_url: https://github.com/yrashk/kerl/raw/master/kerl
     erlang_kerl_bin: /usr/local/bin/kerl
@@ -8,9 +9,10 @@
     erlang_install_to: /usr/lib/kerl/installs
     erlang_kerl_download_dir: /tmp/kerl/archives
     erlang_kerl_build_dir: /tmp/kerl/builds
-    rebar_version: 3
-    rebar_bin: "{{ ansible_env.HOME }}/.bin/rebar3"
+    rebar_version: 2.6.2
+    rebar_bin: "{{ home_dir }}/.bin/rebar3"
   tasks:
+    # https://github.com/stwind/ansible-erlang
     - name: download kerl
       get_url:
         url: "{{erlang_kerl_url}}"
@@ -68,7 +70,6 @@
         url: "https://github.com/rebar/rebar/releases/download/{{ rebar_version }}/rebar"
         dest: "{{ rebar_bin }}"
         mode: 0777
-      become: True
 
     - name: Ubuntu Elisp PPA repo
       apt_repository:
